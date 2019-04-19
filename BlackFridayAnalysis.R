@@ -1,23 +1,32 @@
-setwd("~/Emilio/DS")
-BFDataset<- read.csv("BlackFriday.csv",  skip =0,  
-             comment.char = "",check.names = FALSE, quote="",
-             na.strings=c("NA","NaN", " ") )
+#setwd("/Users/emilio/Documents/Data Science")
+trainDf <- read.csv("./BlackFriday.csv", header = TRUE, na.strings=c("NA","#DIV/0!",""))
 
-summary(BFDataset)
-str(BFDataset)
+str(trainDf)
 
- #install.packages("tidyverse")
+#require(leaps)
+#mejores_modelos <- regsubsets(Purchase~., data = trainDf, nvmax =11 )
+# El argumento nvmax determina el tamaño máximo de los modelos a inspeccionar.
+# Si se quiere realizar best subset selection evaluando todos los posibles 
+# modelos, nvmax tiene que ser igual al número de variables disponibles
 library(tidyverse)
- 
-library(ggplot2)
-ggplot(BFDataset, aes(x = Purchase)) +
-  geom_histogram()
 
-model1 <- lm(Purchase ~ Gender + Age + Occupation + City_Category + Stay_In_Current_City_Years + Marital_Status + Product_Category_1 + Product_Category_2 + Product_Category_3,data = BFDataset)
-summary(model1)
+ggplot(data = trainDf, mapping = aes(x = Age, y = Purchase)) + geom_point()
 
-model2 <- lm(Purchase ~ Gender + Age + Occupation + City_Category + Stay_In_Current_City_Years  + Product_Category_1 + Product_Category_2 + Product_Category_3,data = BFDataset)
-summary(model2)
+ggplot(data = trainDf, mapping = aes(x = Age, y = Purchase)) + geom_boxplot()
+ggplot(data = trainDf, mapping = aes(x = Gender, y = Purchase)) + geom_boxplot()
 
-test
+ggplot(data = trainDf, mapping = aes(x = Age, y = Purchase, color = Gender)) +
+  geom_boxplot() +
+  facet_wrap(~ Occupation)
+head(trainDf, 4)
+#sales = b0 + b1*youtube + b2*facebook + b3*newspaper
+model <- lm(Purchase ~ Gender+Age+Occupation+City_Category+Stay_In_Current_City_Years+Marital_Status, data = trainDf)
+summary(model)
+
+summary(model)$coefficient
+
+model <- lm(Purchase ~ Gender+Age+Occupation+City_Category+Stay_In_Current_City_Years, data = trainDf)
+summary(model)
+
+confint(model)
 
