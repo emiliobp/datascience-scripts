@@ -1,8 +1,9 @@
 #setwd("/Users/emilio/Documents/Data Science")
 trainDf <- read.csv("./BlackFriday.csv", header = TRUE, na.strings=c("NA","#DIV/0!",""))
-
+trainDf$User_ID <- NULL
+trainDf$Product_ID <- NULL
 str(trainDf)
-
+summary(trainDf)
 #require(leaps)
 #mejores_modelos <- regsubsets(Purchase~., data = trainDf, nvmax =11 )
 # El argumento nvmax determina el tamaño máximo de los modelos a inspeccionar.
@@ -28,5 +29,5 @@ summary(model)$coefficient
 model <- lm(Purchase ~ Gender+Age+Occupation+City_Category+Stay_In_Current_City_Years, data = trainDf)
 summary(model)
 
-confint(model)
+
 
