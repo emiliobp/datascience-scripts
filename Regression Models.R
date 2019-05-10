@@ -204,3 +204,76 @@ summary(lm(count ~ spray2, data = InsectSprays))$coef
 # • If we want comparisons between two levels, neither of which is the reference level, we could
 # refit the model with one of them as the reference level.
 
+
+
+#*******Further analysis of the swiss dataset*******
+library(datasets); data(swiss)
+head(swiss)
+
+library(dplyr)
+swiss = mutate(swiss, CatholicBin = 1 * (Catholic > 50))
+
+#Since we’re interested in Agriculture as a variable and Fertility as an outcome, let’s plot those two
+#color coded by the binary Catholic variable:
+require(ggplot2)
+g = ggplot(swiss, aes(x = Agriculture, y = Fertility, colour = factor(CatholicBin)))
+g = g + geom_point(size = 6, colour = "black") + geom_point(size = 4)
+g = g + xlab("% in Agriculture") + ylab("Fertility")
+g
+
+#Let’s first fit the model with Xi2 removed.
+
+summary(lm(Fertility ~ Agriculture, data = swiss))$coef
+
+#*******Residuals*******
+
+data(swiss); par(mfrow = c(2, 2))
+fit <- lm(Fertility ~ . , data = swiss); plot(fit)
+
+#*******Multivariable regression*******
+# Parsimony is a core concept in model selection. The idea of parsimony is to keep your models as
+# simple as possible (but no simpler). This builds on the idea of Occam’s razor¹⁰⁰, in that all else being
+# equal simpler explanations are better than complex ones. Simpler models are easier to interpret and
+# are less finicky. Complex models often have issues with fitting and, especially, overfitting. 
+# (To see a counterargument, consider Andrew Gelman’s blog.¹⁰¹.)
+
+# Another principle that I find useful for looking at statistical models is to consider them as lenses
+# through which to look at your data. (I attribute this quote to the great statistician Scott Zeger.) Under
+# this philosophy, what’s the right model - whatever one connects the data to a true, parsimonious
+# statement about what you’re studying.
+
+
+#*******General rules for model selection*******
+# Here we state a couple of general rules regarding model selection for our known knowns.
+
+# • Omitting variables results in bias in the coefficients of interest - unless the regressors are
+# uncorrelated with the omitted ones.
+
+# I want to reiterate this point: if the omitted variable is uncorrelated with the included variables, its
+# omission has no impact on estimation. It might explain some residual variation, thus it could have
+# an impact on inference. As previously mentioned, this lack of impact of uncorrelated variables is
+# why we randomize treatments; randomization attempts to disassociate our treatment indicator with
+# variables that we don’t have to put in the model. Formal theories of inference can be designed around
+# the use of randomization. However, in a practical sense, if there’s too many unobserved confounding
+# variables, even randomization won’t help you, since with high probability one will stay correlated
+# with the treatment.
+# In most cases we won’t have randomization. So, to avoid bias, why don’t we throw everything into
+# the regression model? The following rule prevents us from doing that:
+
+#   • Including variables that we shouldn’t have increases standard errors of the regression variables.
+
+# Actually, including any new variables increases the actual (not estimated) standard errors of other
+# regressors. So we don’t want to idly throw variables into the model. In addition the model must tend
+# toward perfect fit as the number of non-redundant regressors approaches the sample size. Our R2
+# increases monotonically as more regressors are included, even unrelated white noise.
+
+#R squared goes up as you put regressors in the model
+n <- 100
+plot(c(1, n), 0 : 1, type = "n", frame = FALSE, xlab = "p", ylab = "R^2")
+y <- rnorm(n); x <- NULL; r <- NULL
+for (i in 1 : n){
+  x <- cbind(x, rnorm(n))
+  r <- c(r, summary(lm(y ~ x))$r.squared)
+}
+lines(1 : n, r, lwd = 3)
+abline(h = 1)
