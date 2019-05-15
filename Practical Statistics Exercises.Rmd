@@ -1,0 +1,228 @@
+---
+title: "Practical Statistics Exercises"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+##### KEY TERMS FOR DATA TYPES
+
+Continuous
+  Data that can take on any value in an interval.
+  Synonyms
+    interval, float, numeric
+    
+Discrete
+  Data that can take on only integer values, such as counts.
+  Synonyms
+    integer, count
+    
+Categorical
+  Data that can take on only a specific set of values representing a set of possible categories.
+  Synonyms
+    enums, enumerated, factors, nominal, polychotomous
+    
+Binary
+  A special case of categorical data with just two categories of values (0/1, true/false).
+  Synonyms
+    dichotomous, logical, indicator, boolean
+    
+Ordinal
+  Categorical data that has an explicit ordering.
+  Synonyms
+    ordered factor
+
+There are two basic types of structured data: numeric and categorical. 
+
+Numeric data comes in two forms:
+Continuous, such as wind speed or time duration, 
+Discrete, such as the count of the occurrence of an event. 
+
+Categorical data takes only a fixed set of values, such as a type of TV screen (plasma, LCD, LED,
+etc.) or a state name (Alabama, Alaska, etc.). 
+Binary data is an important special case of categorical data
+that takes on only one of two values, such as 0/1, yes/no, or true/false. 
+Another useful type of categorical data is ordinal data in which the categories are ordered; an example of this is a numerical rating (1, 2, 3,
+4, or 5).
+
+
+##### KEY TERMS FOR RECTANGULAR DATA
+
+Data frame
+  Rectangular data (like a spreadsheet) is the basic data structure for statistical and machine learning models.
+
+Feature
+  A column in the table is commonly referred to as a feature.
+  Synonyms
+    attribute, input, predictor, variable
+
+Outcome
+  Many data science projects involve predicting an outcome — often a yes/no outcome. 
+  The features are sometimes used to predict the outcome in an experiment or study.
+  Synonyms
+    dependent variable, response, target, output
+
+Records
+  A row in the table is commonly referred to as a record.
+  Synonyms
+    case, example, instance, observation, pattern, sample
+    
+    
+    
+#### Estimates of Location
+Variables with measured or count data might have thousands of distinct values. A basic step in exploring
+your data is getting a “typical value” for each feature (variable): an estimate of where most of the data is
+located (i.e., its central tendency).
+
+##### KEY TERMS FOR ESTIMATES OF LOCATION
+Mean
+  The sum of all values divided by the number of values.
+  Synonyms
+    average
+
+$$Mean = \overline{x} = \frac{\sum_{i=1}^n x_i}{n}$$
+
+Weighted mean
+  The sum of all values times a weight divided by the sum of the weights.
+  Synonyms
+    weighted average
+
+Median
+  The value such that one-half of the data lies above and below.
+  Synonyms
+    50th percentile
+
+Weighted median
+  The value such that one-half of the sum of the weights lies above and below the sorted data.
+
+$$Weighted\,mean = \overline{x}_w = \frac{\sum_{i=1}^{n} w_i x_i}{\sum_{i}^{n}w_i}$$
+
+Trimmed mean
+  The average of all values after dropping a fixed number of extreme values.
+  Synonyms
+    truncated mean
+$$Trimmed\,mean = \overline{x} = \frac{\sum_{i=p+1}^{n-p} x_i}{n-2p}$$
+
+Robust
+  Not sensitive to extreme values.
+  Synonyms
+    resistant
+
+Outlier
+  A data value that is very different from most of the data.
+  Synonyms
+    extreme value
+    
+```{r mean}
+
+state <- read.csv(file="C:/Users/Emilio Blanco/Documents/Emilio/DS/datascience-scripts/psds_data/state.csv")
+mean(state[["Population"]])
+
+mean(state[["Population"]], trim=0.1)
+
+median(state[["Population"]])
+
+```
+
+The mean is bigger than the trimmed mean, which is bigger than the median.
+This is because the trimmed mean excludes the largest and smallest five states (trim=0.1 drops 10%
+from each end). If we want to compute the average murder rate for the country, we need to use a weighted
+mean or median to account for different populations in the states. Since base R doesn’t have a function for
+weighted median, we need to install a package such as matrixStats:
+
+```{r weighted mean}
+weighted.mean(state[["Murder.Rate"]], w=state[["Population"]])
+
+library("matrixStats")
+weightedMedian(state[["Murder.Rate"]], w=state[["Population"]])
+
+```
+
+#### Estimates of Variability
+Location is just one dimension in summarizing a feature. A second dimension, __variability__, also referred to
+as __dispersion__, measures whether the data values are tightly clustered or spread out. At the heart of
+statistics lies variability: measuring it, reducing it, distinguishing random from real variability, identifying
+the various sources of real variability, and making decisions in the presence of it.
+
+##### KEY TERMS FOR VARIABILITY METRICS
+Deviations
+  The difference between the observed values and the estimate of location.
+  Synonyms
+    errors, residuals
+
+Variance
+  The sum of squared deviations from the mean divided by n – 1 where n is the number of data values.
+  Synonyms
+    mean-squared-error
+
+$$Variance =s^2= \frac{\sum (x-\overline{x})^2}{n-1}$$
+
+Standard deviation
+  The square root of the variance.
+  Synonyms
+    l2-norm, Euclidean norm
+
+$$Standard \,deviation =s= \sqrt{Variance}$$
+
+Mean absolute deviation
+  The mean of the absolute value of the deviations from the mean.
+  Synonyms
+    l1-norm, Manhattan norm
+
+$$Mean\,Absolute\,Deviation = \frac{\sum_{i=1}^n |x_i-\overline{x}|}{n}$$
+
+Median absolute deviation from the median
+  The median of the absolute value of the deviations from the median.
+  
+$$Median\,Absolute\,Deviation = Median (|x_1-m|,|x_2-m|, ..., |x_N-m|)$$  
+where m is the median. Like the median, the MAD is not influenced by extreme values. It is also possible
+to compute a trimmed standard deviation analogous to the trimmed mean
+
+Range
+  The difference between the largest and the smallest value in a data set.
+
+Order statistics
+  Metrics based on the data values sorted from smallest to biggest.
+  Synonyms
+    ranks
+
+Percentile
+  The value such that P percent of the values take on this value or less and (100–P) percent take on this value or more.
+  Synonyms
+    quantile
+
+Interquartile range
+  The difference between the 75th percentile and the 25th percentile.
+  Synonyms
+    IQR
+
+
+####Estimates Based on Percentiles
+A different approach to estimating dispersion is based on looking at the spread of the sorted data.
+Statistics based on sorted (ranked) data are referred to as order statistics. The most basic measure is the
+range: the difference between the largest and smallest number. The minimum and maximum values
+themselves are useful to know, and helpful in identifying outliers, but the range is extremely sensitive to
+outliers and not very useful as a general measure of dispersion in the data.
+
+To avoid the sensitivity to outliers, we can look at the range of the data after dropping values from each
+end. Formally, these types of estimates are based on differences between percentiles. In a data set, the Pth
+percentile is a value such that at least P percent of the values take on this value or less and at least (100 –
+P) percent of the values take on this value or more. For example, to find the 80th percentile, sort the data.
+Then, starting with the smallest value, proceed 80 percent of the way to the largest value. Note that the
+median is the same thing as the 50th percentile. The percentile is essentially the same as a quantile, with
+quantiles indexed by fractions (so the .8 quantile is the same as the 80th percentile).
+
+A common measurement of variability is the difference between the 25th percentile and the 75th
+percentile, called the interquartile range (or IQR). Here is a simple example: 3,1,5,3,6,7,2,9. We sort
+these to get 1,2,3,3,5,6,7,9. The 25th percentile is at 2.5, and the 75th percentile is at 6.5, so the
+interquartile range is 6.5 – 2.5 = 4. Software can have slightly differing approaches that yield different
+answers (see the following note); typically, these differences are smaller.
+For very large data sets, calculating exact percentiles can be computationally very expensive since it
+requires sorting all the data values. Machine learning and statistical software use special algorithms, such
+as [Zhang-Wang-2007], to get an approximate percentile that can be calculated very quickly and is
+guaranteed to have a certain accuracy.
+
