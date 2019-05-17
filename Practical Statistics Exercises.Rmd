@@ -10,36 +10,30 @@ knitr::opts_chunk$set(echo = TRUE)
 ## R Markdown
 
 ##### KEY TERMS FOR DATA TYPES
+Continuous  
+  
+* Data that can take on any value in an interval. (Synonyms: interval, float, numeric)
+    
+Discrete  
 
-Continuous
-  Data that can take on any value in an interval.
-  Synonyms
-    interval, float, numeric
+* Data that can take on only integer values, such as counts. (Synonyms: integer, count)
     
-Discrete
-  Data that can take on only integer values, such as counts.
-  Synonyms
-    integer, count
+Categorical  
+
+* Data that can take on only a specific set of values representing a set of possible categories. (Synonyms: enums, enumerated, factors, nominal, polychotomous)
     
-Categorical
-  Data that can take on only a specific set of values representing a set of possible categories.
-  Synonyms
-    enums, enumerated, factors, nominal, polychotomous
+Binary  
+
+* A special case of categorical data with just two categories of values (0/1, true/false). (Synonyms: dichotomous, logical, indicator, boolean)
     
-Binary
-  A special case of categorical data with just two categories of values (0/1, true/false).
-  Synonyms
-    dichotomous, logical, indicator, boolean
-    
-Ordinal
-  Categorical data that has an explicit ordering.
-  Synonyms
-    ordered factor
+Ordinal  
+  
+* Categorical data that has an explicit ordering. (Synonyms: ordered factor)
 
 There are two basic types of structured data: numeric and categorical. 
 
-Numeric data comes in two forms:
-Continuous, such as wind speed or time duration, 
+Numeric data comes in two forms:  
+Continuous, such as wind speed or time duration.  
 Discrete, such as the count of the occurrence of an event. 
 
 Categorical data takes only a fixed set of values, such as a type of TV screen (plasma, LCD, LED,
@@ -52,24 +46,22 @@ Another useful type of categorical data is ordinal data in which the categories 
 
 ##### KEY TERMS FOR RECTANGULAR DATA
 
-Data frame
-  Rectangular data (like a spreadsheet) is the basic data structure for statistical and machine learning models.
+Data frame  
+
+* Rectangular data (like a spreadsheet) is the basic data structure for statistical and machine learning models.
 
 Feature
-  A column in the table is commonly referred to as a feature.
-  Synonyms
-    attribute, input, predictor, variable
+
+* A column in the table is commonly referred to as a feature. (Synonyms: attribute, input, predictor, variable)
 
 Outcome
-  Many data science projects involve predicting an outcome — often a yes/no outcome. 
-  The features are sometimes used to predict the outcome in an experiment or study.
-  Synonyms
-    dependent variable, response, target, output
+
+* Many data science projects involve predicting an outcome — often a yes/no outcome. 
+* The features are sometimes used to predict the outcome in an experiment or study. (Synonyms: dependent variable, response, target, output)
 
 Records
-  A row in the table is commonly referred to as a record.
-  Synonyms
-    case, example, instance, observation, pattern, sample
+
+* A row in the table is commonly referred to as a record. (Synonyms: case, example, instance, observation, pattern, sample)
     
     
     
@@ -79,43 +71,38 @@ your data is getting a “typical value” for each feature (variable): an estim
 located (i.e., its central tendency).
 
 ##### KEY TERMS FOR ESTIMATES OF LOCATION
-Mean
-  The sum of all values divided by the number of values.
-  Synonyms
-    average
+Mean  
+
+* The sum of all values divided by the number of values.(Synonyms:average)
 
 $$Mean = \overline{x} = \frac{\sum_{i=1}^n x_i}{n}$$
 
-Weighted mean
-  The sum of all values times a weight divided by the sum of the weights.
-  Synonyms
-    weighted average
+Weighted mean  
 
-Median
-  The value such that one-half of the data lies above and below.
-  Synonyms
-    50th percentile
+* The sum of all values times a weight divided by the sum of the weights. (Synonyms: weighted average)
 
-Weighted median
-  The value such that one-half of the sum of the weights lies above and below the sorted data.
+Median  
+
+* The value such that one-half of the data lies above and below. (Synonyms: 50th percentile)
+
+Weighted median  
+
+* The value such that one-half of the sum of the weights lies above and below the sorted data.
 
 $$Weighted\,mean = \overline{x}_w = \frac{\sum_{i=1}^{n} w_i x_i}{\sum_{i}^{n}w_i}$$
 
-Trimmed mean
-  The average of all values after dropping a fixed number of extreme values.
-  Synonyms
-    truncated mean
+Trimmed mean  
+
+* The average of all values after dropping a fixed number of extreme values. (Synonyms: truncated mean)
 $$Trimmed\,mean = \overline{x} = \frac{\sum_{i=p+1}^{n-p} x_i}{n-2p}$$
 
-Robust
-  Not sensitive to extreme values.
-  Synonyms
-    resistant
+Robust  
 
-Outlier
-  A data value that is very different from most of the data.
-  Synonyms
-    extreme value
+* Not sensitive to extreme values. (Synonyms: resistant)
+
+Outlier  
+
+* A data value that is very different from most of the data. (Synonyms: extreme value)
     
 ```{r mean}
 
@@ -149,51 +136,57 @@ statistics lies variability: measuring it, reducing it, distinguishing random fr
 the various sources of real variability, and making decisions in the presence of it.
 
 ##### KEY TERMS FOR VARIABILITY METRICS
-Deviations
-  The difference between the observed values and the estimate of location.
-  Synonyms
-    errors, residuals
+Deviations  
 
-Variance
-  The sum of squared deviations from the mean divided by n – 1 where n is the number of data values.
-  Synonyms
-    mean-squared-error
+* The difference between the observed values and the estimate of location. (Synonyms: errors, residuals)
+
+Variance  
+
+* The sum of squared deviations from the mean divided by n – 1 where n is the number of data values. (Synonyms: mean-squared-error)
 
 $$Variance =s^2= \frac{\sum (x-\overline{x})^2}{n-1}$$
 
-Standard deviation
-  The square root of the variance.
-  Synonyms
-    l2-norm, Euclidean norm
+Standard deviation  
+
+* The square root of the variance. (Synonyms: l2-norm, Euclidean norm)
 
 $$Standard \,deviation =s= \sqrt{Variance}$$
 
-Mean absolute deviation
-  The mean of the absolute value of the deviations from the mean.
-  Synonyms
-    l1-norm, Manhattan norm
+Mean absolute deviation  
+
+* The mean of the absolute value of the deviations from the mean. (Synonyms: l1-norm, Manhattan norm)
 
 $$Mean\,Absolute\,Deviation = \frac{\sum_{i=1}^n |x_i-\overline{x}|}{n}$$
 
-Median absolute deviation from the median
-  The median of the absolute value of the deviations from the median.
+Median absolute deviation from the median  
+
+* The median of the absolute value of the deviations from the median.
   
 $$Median\,Absolute\,Deviation = Median (|x_1-m|,|x_2-m|, ..., |x_N-m|)$$  
 where m is the median. Like the median, the MAD is not influenced by extreme values. It is also possible
 to compute a trimmed standard deviation analogous to the trimmed mean
 
-Range
-  The difference between the largest and the smallest value in a data set.
+Range  
 
-Order statistics
-  Metrics based on the data values sorted from smallest to biggest.
-  Synonyms
-    ranks
+* The difference between the largest and the smallest value in a data set.
 
-Percentile
-  The value such that P percent of the values take on this value or less and (100–P) percent take on this value or more.
-  Synonyms
-    quantile
+Order statistics  
+
+* Metrics based on the data values sorted from smallest to biggest. (Synonyms: ranks)
+
+Percentile  
+
+* The value such that P percent of the values take on this value or less and (100–P) percent take on this value or more. (Synonyms: quantile)  
+
+If we have an even number of data (n is even), then the percentile is ambiguous under the preceding definition. In fact, we could
+take on any value between the order statistics $x_{(j)}$ and $x_{(j+1)}$where j satisfies:    
+    $$100 * \frac {j}{n} \leq P < 100 * \frac {j+1}{n}  $$  
+  Formally, the percentile is the weighted average:
+  $$Percentile (P) = (1-w)x_{(j)} + wx_{(j+1)}  $$ 
+
+  for some weight w between 0 and 1. Statistical software has slightly differing approaches to choosing w. In fact, the R function
+  quantile offers nine different alternatives to compute the quantile. Except for small data sets, you don’t usually need to worry
+  about the precise way a percentile is calculated.
 
 Interquartile range
   The difference between the 75th percentile and the 25th percentile.
@@ -201,7 +194,7 @@ Interquartile range
     IQR
 
 
-####Estimates Based on Percentiles
+#### Estimates Based on Percentiles
 A different approach to estimating dispersion is based on looking at the spread of the sorted data.
 Statistics based on sorted (ranked) data are referred to as order statistics. The most basic measure is the
 range: the difference between the largest and smallest number. The minimum and maximum values
@@ -217,12 +210,337 @@ median is the same thing as the 50th percentile. The percentile is essentially t
 quantiles indexed by fractions (so the .8 quantile is the same as the 80th percentile).
 
 A common measurement of variability is the difference between the 25th percentile and the 75th
-percentile, called the interquartile range (or IQR). Here is a simple example: 3,1,5,3,6,7,2,9. We sort
-these to get 1,2,3,3,5,6,7,9. The 25th percentile is at 2.5, and the 75th percentile is at 6.5, so the
-interquartile range is 6.5 – 2.5 = 4. Software can have slightly differing approaches that yield different
+percentile, called the interquartile range (or IQR). 
+Here is a simple example: 3,1,5,3,6,7,2,9. We sort these to get 1,2,3,3,5,6,7,9. 
+The 25th percentile is at 2.5, and the 75th percentile is at 6.5, so the
+interquartile range is 6.5 – 2.5 = 4. 
+Software can have slightly differing approaches that yield different
 answers (see the following note); typically, these differences are smaller.
 For very large data sets, calculating exact percentiles can be computationally very expensive since it
 requires sorting all the data values. Machine learning and statistical software use special algorithms, such
 as [Zhang-Wang-2007], to get an approximate percentile that can be calculated very quickly and is
 guaranteed to have a certain accuracy.
+
+Using R’s built-in functions for the standard deviation, interquartile range (IQR), and the median
+absolution deviation from the median (MAD), we can compute estimates of variability for the state
+population data:
+```{r variability}
+
+sd(state[["Population"]])
+
+IQR(state[["Population"]])
+
+mad(state[["Population"]])
+
+```
+The standard deviation is almost twice as large as the MAD (in R, by default, the scale of the MAD is
+adjusted to be on the same scale as the mean). This is not surprising since the standard deviation is
+sensitive to outliers.
+
+##### KEY IDEAS
+* The variance and standard deviation are the most widespread and routinely reported statistics of variability.
+* Both are sensitive to outliers.
+* More robust metrics include mean and median absolute deviations from the mean and percentiles (quantiles).
+
+#### Exploring the Data Distribution
+
+Each of the estimates we’ve covered sums up the data in a single number to describe the location or variability of the data. It is also useful to explore how the data is distributed overall.
+
+##### KEY TERMS FOR EXPLORING THE DISTRIBUTION
+
+Boxplot  
+
+* A plot introduced by Tukey as a quick way to visualize the distribution of data. (Synonyms:Box and whiskers plot)
+
+Frequency table  
+
+* A tally of the count of numeric data values that fall into a set of intervals (bins).
+
+Histogram  
+
+* A plot of the frequency table with the bins on the x-axis and the count (or proportion) on the y-axis.
+
+Density plot  
+
+* A smoothed version of the histogram, often based on a kernal density estimate.
+
+##### Percentiles and Boxplots
+
+we explored how percentiles can be used to measure the spread of
+the data. Percentiles are also valuable to summarize the entire distribution. It is common to report the
+quartiles (25th, 50th, and 75th percentiles) and the deciles (the 10th, 20th, …, 90th percentiles).
+Percentiles are especially valuable to summarize the tails (the outer range) of the distribution. Popular
+culture has coined the term one-percenters to refer to the people in the top 99th percentile of wealth.
+```{r quantile}
+
+quantile(state[["Murder.Rate"]], p=c(.05, .25, .5, .75, .95))
+
+```
+
+The median is 4 murders per 100,000 people, although there is quite a bit of variability: the 5th percentile
+is only 1.6 and the 95th percentile is 6.51.
+
+Boxplots, introduced by Tukey [Tukey-1977], are based on percentiles and give a quick way to visualize
+the distribution of data. Figure 1-2 shows a boxplot of the population by state produced by R:
+```{r boxplot}
+
+boxplot(state[["Population"]]/1000000, ylab="Population (millions)")
+
+```  
+
+* The top and bottom of the box are the 75th and 25th percentiles, respectively.  
+* The median is shown by the horizontal line in the box.  
+* The dashed lines, referred to as whiskers, extend from the top and bottom to indicate the range for the bulk of the data.  
+
+There are many variations of a boxplot; see, for example, the
+documentation for the R function boxplot [R-base-2015]. By default, the R function extends the whiskers
+to the furthest point beyond the box, except that it will not go beyond 1.5 times the IQR (other software
+may use a different rule). Any data outside of the whiskers is plotted as single points.
+
+##### Frequency Table and Histograms  
+A **frequency table** of a variable divides up the variable range into equally spaced segments, and tells us
+how many values fall in each segment.  
+Frequency table of the population by state computed in R:
+```{r frequency}
+
+breaks <- seq(from=min(state[["Population"]]), to=max(state[["Population"]]), length=11)
+pop_freq <- cut(state[["Population"]], breaks=breaks, right=TRUE, include.lowest = TRUE)
+table(pop_freq)
+
+```  
+
+A **histogram** is a way to visualize a frequency table, with bins on the x-axis and data count on the y-axis.
+To create a histogram corresponding to Table 1-5 in R, use the hist function with the breaks argument:  
+
+```{r histogram}
+hist(state[["Population"]], breaks=breaks)
+```  
+
+In general, histograms are plotted such that:  
+
+* Empty bins are included in the graph.  
+* Bins are equal width.  
+* Number of bins (or, equivalently, bin size) is up to the user.  
+* Bars are contiguous — no empty space shows between bars, unless there is an empty bin.
+
+
+> In statistical theory, location and variability are referred to as the first and second moments of a distribution. The third and fourth
+moments are called skewness and kurtosis. Skewness refers to whether the data is skewed to larger or smaller values and
+kurtosis indicates the propensity of the data to have extreme values. Generally, metrics are not used to measure skewness and
+kurtosis; instead, these are discovered through visual displays
+
+##### Density Estimates
+
+Related to the histogram is a **density** **plot**, which shows the distribution of data values as a continuous
+line. A density plot can be thought of as a smoothed histogram, although it is typically computed directly
+from the data through a kernal density estimate (see [Duong-2001] for a short tutorial).  
+Figure 1-4 displays a density estimate superposed on a histogram. In R, you can compute a density estimate using the
+density function:
+```{r density}
+hist(state[["Murder.Rate"]], freq=FALSE)
+lines(density(state[["Murder.Rate"]]), lwd=3, col="blue")
+```  
+
+
+A key distinction from the histogram plotted in Figure 1-3 is the scale of the y-axis: a density plot
+corresponds to plotting the histogram as a proportion rather than counts (you specify this in R using the argument freq=FALSE).
+
+##### KEY IDEAS  
+
+* A frequency histogram plots frequency counts on the y-axis and variable values on the x-axis; it gives a sense of the distribution of
+the data at a glance.  
+* A frequency table is a tabular version of the frequency counts found in a histogram.  
+* A boxplot — with the top and bottom of the box at the 75th and 25th percentiles, respectively — also gives a quick sense of the
+distribution of the data; it is often used in side-by-side displays to compare distributions.  
+* A density plot is a smoothed version of a histogram; it requires a function to estimate a plot based on the data (multiple estimates
+are possible, of course).
+
+#### Exploring Binary and Categorical Data  
+For **categorical** **data**, simple proportions or percentages tell the story of the data.  
+
+##### KEY TERMS FOR EXPLORING CATEGORICAL DATA  
+
+Mode
+
+* The most commonly occurring category or value in a data set.  
+
+Expected value  
+
+* When the categories can be associated with a numeric value, this gives an average value based on a category’s probability of occurrence.
+
+Bar charts  
+
+* The frequency or proportion for each category plotted as bars.  
+
+Pie charts  
+
+* The frequency or proportion for each category plotted as wedges in a pie.
+
+Getting a summary of a binary variable or a categorical variable with a few categories is a fairly easy matter: we just figure out the proportion of 1s, or of the important categories.
+
+Bar charts are a common visual tool for displaying a single categorical variable, often seen in the popular
+press. Categories are listed on the x-axis, and frequencies or proportions on the y-axis. Figure 1-5 shows
+the airport delays per year by cause for Dallas/Fort Worth, and it is produced with the R function
+barplot:
+
+```{r barplot}
+dfw <- read.csv(file="C:/Users/Emilio Blanco/Documents/Emilio/DS/datascience-scripts/psds_data/dfw_airline.csv")
+barplot(as.matrix(dfw)/6, cex.axis=.5)
+```
+
+
+##### Expected Value
+A special type of categorical data is data in which the categories represent or can be mapped to discrete
+values on the same scale. A marketer for a new cloud technology, for example, offers two levels of
+service, one priced at \$300/month and another at $50/month. The marketer offers free webinars to
+generate leads, and the firm figures that 5% of the attendees will sign up for the $300 service, 15% for the
+$50 service, and 80% will not sign up for anything. This data can be summed up, for financial purposes,
+in a single **“expected value,” which is a form of weighted mean in which the weights are probabilities.**  
+
+The expected value is calculated as follows:
+$$EV = (0.05)(300) + (0.15)(50) + (0.80)(0) = 22.5 $$
+
+1. Multiply each outcome by its probability of occurring.
+2. Sum these values.  
+
+In the cloud service example, the expected value of a webinar attendee is thus $22.50 per month,
+calculated as follows:
+The expected value is really a form of weighted mean: it adds the ideas of future expectations and
+probability weights, often based on subjective judgment. Expected value is a fundamental concept in
+business valuation and capital budgeting — for example, the expected value of five years of profits from a
+new acquisition, or the expected cost savings from new patient management software at a clinic.
+
+##### KEY IDEAS  
+
+* Categorical data is typically summed up in proportions, and can be visualized in a bar chart.  
+* Categories might represent distinct things (apples and oranges, male and female), levels of a factor variable (low, medium, and
+high), or numeric data that has been binned.  
+* Expected value is the sum of values times their probability of occurrence, often used to sum up factor variable levels.
+
+#### Correlation  
+
+Exploratory data analysis in many modeling projects (whether in data science or in research) involves
+examining correlation among predictors, and between predictors and a target variable. Variables X and Y
+(each with measured data) are said to be positively correlated if high values of X go with high values of
+Y, and low values of X go with low values of Y. If high values of X go with low values of Y, and vice
+versa, the variables are negatively correlated.
+
+##### KEY TERMS FOR CORRELATION  
+
+Correlation coefficient  
+
+* A metric that measures the extent to which numeric variables are associated with one another (ranges from –1 to +1).
+
+Correlation matrix  
+
+* A table where the variables are shown on both rows and columns, and the cell values are the correlations between the variables.
+
+Scatterplot  
+
+* A plot in which the x-axis is the value of one variable, and the y-axis the value of another.
+
+Consider these two variables, perfectly correlated in the sense that each goes from low to high:  
+
+* v1: {1, 2, 3}  
+
+* v2: {4, 5, 6}
+
+The vector sum of products is 4 + 10 + 18 = 32.Now try shuffling one of them and recalculating — the
+vector sum of products will never be higher than 32. So this sum of products could be used as a metric;
+that is, the observed sum of 32 could be compared to lots of random shufflings (in fact, this idea relates to
+a resampling-based estimate: see “Permutation Test”). Values produced by this metric, though, are not that
+meaningful, except by reference to the resampling distribution.
+
+More useful is a standardized variant: the **correlation coefficient**, which gives an estimate of the
+correlation between two variables that always lies on the same scale. To compute Pearson’s correlation
+coefficient, we multiply deviations from the mean for variable 1 times those for variable 2, and divide by
+the product of the standard deviations:
+$$r = \frac{\sum_{i=1}^N (x_i-\overline{x})(y_i-\overline{y})}{(N-1)s_xs_y}$$  
+The correlation coefficient always lies between +1 (perfect positive correlation) and –1 (perfect negative
+correlation); 0 indicates no correlation.  
+
+Variables can have an association that is not linear, in which case the correlation coefficient may not be a
+useful metric. The relationship between tax rates and revenue raised is an example: as tax rates increase
+from 0, the revenue raised also increases. However, once tax rates reach a high level and approach
+100%, tax avoidance increases and tax revenue actually declines.  
+
+called a correlation matrix, shows the correlation between the daily returns for
+telecommunication stocks from July 2012 through June 2015. From the table, you can see that Verizon
+(VZ) and ATT (T) have the highest correlation. Level Three (LVLT), which is an infrastructure company,
+has the lowest correlation. Note the diagonal of 1s (the correlation of a stock with itself is 1), and the
+redundancy of the information above and below the diagonal.
+
+Table 1-7. Correlation between telecommunication stock returns
+
+
+|   | T | CTL | FTR | VZ | LVLT |
+|:-:|:-:|:---:|:---:|:--:|:----:|
+| T | 1.000 | 0.475 | 0.328 | 0.678 | 0.279 |
+| CTL | 0.475 | 1.000 | 0.420 | 0.417 | 0.287 |
+| FTR | 0.328 | 0.420 | 1.000 | 0.287 | 0.260 |
+| VZ | 0.678 | 0.417 | 0.287 | 1.000 | 0.242 |
+| LVLT | 0.279 | 0.287 | 0.260 | 0.242 | 1.000 |  
+
+
+A table of correlations like Table 1-7 is commonly plotted to visually display the relationship between
+multiple variables. Figure 1-6 shows the correlation between the daily returns for major exchange traded
+funds (ETFs). In R, we can easily create this using the package corrplot:  
+```{r corrplot}
+sp500_px <- read.csv(file="C:/Users/Emilio Blanco/Documents/Emilio/DS/datascience-scripts/psds_data/sp500_data.csv")
+sp500_sym <- read.csv(file="C:/Users/Emilio Blanco/Documents/Emilio/DS/datascience-scripts/psds_data/sp500_sectors.csv", stringsAsFactors = FALSE)
+etfs <- sp500_px[row.names(sp500_px)>"2012-07-01", sp500_sym[sp500_sym$sector=="etf", 'symbol']]
+library(corrplot)
+corrplot(cor(etfs), method = "ellipse")
+```  
+
+#### Scatterplots  
+
+The standard way to visualize the relationship between two measured data variables is with a **scatterplot.**
+The x-axis represents one variable, the y-axis another, and each point on the graph is a record. See Figure
+1-7 for a plot between the daily returns for ATT and Verizon. This is produced in R with the command:
+```{r Scatterplots}
+
+telecom <- sp500_px[, sp500_sym[sp500_sym$sector=="telecommunications_services", 'symbol']]
+telecom <- telecom[row.names(telecom)>"2012-07-01", ]
+telecom_cor <- cor(telecom)
+
+plot(telecom$T, telecom$VZ, xlab="T", ylab="VZ")
+```  
+
+
+The returns have a strong positive relationship: on most days, both stocks go up or go down in tandem.
+There are very few days where one stock goes down significantly while the other stock goes up (and vice
+versa).
+
+
+##### KEY IDEAS FOR CORRELATION  
+
+* The correlation coefficient measures the extent to which two variables are associated with one another.  
+* When high values of v1 go with high values of v2, v1 and v2 are positively associated.  
+* When high values of v1 are associated with low values of v2, v1 and v2 are negatively associated.  
+* The correlation coefficient is a standardized metric so that it always ranges from –1 (perfect negative correlation) to +1 (perfect positive correlation).  
+* A correlation coefficient of 0 indicates no correlation, but be aware that random arrangements of data will produce both positive
+and negative values for the correlation coefficient just by chance.
+
+
+#### Exploring Two or More Variables  
+
+Familiar estimators like mean and variance look at variables one at a time (univariate analysis).
+Correlation analysis (see “Correlation”) is an important method that compares two variables (bivariate
+analysis). In this section we look at additional estimates and plots, and at more than two variables
+(multivariate analysis).  
+
+##### KEY TERMS FOR EXPLORING TWO OR MORE VARIABLES  
+
+Contingency tables
+A tally of counts between two or more categorical variables.
+Hexagonal binning
+A plot of two numeric variables with the records binned into hexagons.
+Contour plots
+A plot showing the density of two numeric variables like a topographical map.
+Violin plots
+Similar to a boxplot but showing the density estimate.
+Like univariate analysis, bivariate analysis involves both computing summary statistics and producing
+visual displays. The appropriate type of bivariate or multivariate analysis depends on the nature of the
+data: numeric versus categorical.
 
