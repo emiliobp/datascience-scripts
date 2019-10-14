@@ -544,3 +544,41 @@ Like univariate analysis, bivariate analysis involves both computing summary sta
 visual displays. The appropriate type of bivariate or multivariate analysis depends on the nature of the
 data: numeric versus categorical.
 
+#### Hexagonal binding and 
+```{r hex bind}
+library(ggplot2)
+library(hexbin)
+kc_tax <- read.csv(file="C:/Users/Emilio Blanco/Documents/Emilio/DS/datascience-scripts/psds_data/kc_tax.csv")
+kc_tax0 <- subset(kc_tax, TaxAssessedValue < 750000 & SqFtTotLiving>100 & SqFtTotLiving<3500)
+
+ggplot(kc_tax0, (aes(x=SqFtTotLiving, y=TaxAssessedValue))) +
+stat_binhex(colour="white") +
+theme_bw() +
+scale_fill_gradient(low="white", high="black") +
+labs(x="Finished Square Feet", y="Tax Assessed Value")
+
+``` 
+
+#### Two Categorical Variables
+A useful way to summarize two categorical variables is a contingency table — a table of counts by
+category.
+
+```{r cat_var}
+library(descr)
+lc_loans <- read.csv(file="C:/Users/Emilio Blanco/Documents/Emilio/DS/datascience-scripts/psds_data/lc_loans.csv")
+
+x_tab <- CrossTable(lc_loans$grade, lc_loans$status, prop.c=FALSE, prop.chisq=FALSE, prop.t=FALSE)
+x_tab
+``` 
+
+#### Categorical and Numeric Data
+
+Boxplots (see “Percentiles and Boxplots”) are a simple way to visually compare the distributions of a
+numeric variable grouped according to a categorical variable.
+
+```{r delays}
+
+airline_stats <- read.csv(file="C:/Users/Emilio Blanco/Documents/Emilio/DS/datascience-scripts/psds_data/airline_stats.csv")
+boxplot(pct_carrier_delay ~ airline, data=airline_stats, ylim=c(0, 50))
+
+``` 
