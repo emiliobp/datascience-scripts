@@ -581,4 +581,230 @@ numeric variable grouped according to a categorical variable.
 airline_stats <- read.csv(file="C:/Users/Emilio Blanco/Documents/Emilio/DS/datascience-scripts/psds_data/airline_stats.csv")
 boxplot(pct_carrier_delay ~ airline, data=airline_stats, ylim=c(0, 50))
 
-``` 
+```
+
+A violin plot, introduced by [Hintze-Nelson-1998], is an enhancement to the boxplot and plots the density
+estimate with the density on the y-axis. The density is mirrored and flipped over and the resulting shape is
+filled in, creating an image resembling a violin. The advantage of a violin plot is that it can show nuances
+in the distribution that aren’t perceptible in a boxplot. On the other hand, the boxplot more clearly shows
+the outliers in the data. In ggplot2, the function geom_violin can be used to create a violin plot as
+follows:
+
+```{r violin}
+
+ggplot(data=airline_stats, aes(airline, pct_carrier_delay)) +
+ylim(0, 50) +
+geom_violin() +
+labs(x="", y="Daily % of Delayed Flights")
+
+```
+
+#### Visualizing Multiple Variables  
+The types of charts used to compare two variables — scatterplots, hexagonal binning, and boxplots — are
+readily extended to more variables through the notion of conditioning. As an example, look back at
+Figure 1-8, which showed the relationship between homes’ finished square feet and tax-assessed values.
+We observed that there appears to be a cluster of homes that have higher tax-assessed value per square
+foot. Diving deeper, Figure 1-12 accounts for the effect of location by plotting the data for a set of zip
+codes. Now the picture is much clearer: tax-assessed value is much higher in some zip codes (98112,
+98105) than in others (98108, 98057).
+
+```{r multiple vars}
+
+ggplot(subset(kc_tax0, ZipCode %in% c(98188, 98105, 98108, 98126)),
+aes(x=SqFtTotLiving, y=TaxAssessedValue)) +
+stat_binhex(colour="white") +
+theme_bw() +
+scale_fill_gradient( low="white", high="blue") +
+labs(x="Finished Square Feet", y="Tax Assessed Value") +
+facet_wrap("ZipCode")
+```
+#### Chapter 2 Data and Sampling DIstributions
+A popular misconception holds that the era of big data means the end of a need for sampling. In fact, the
+proliferation of data of varying quality and relevance reinforces the need for sampling as a tool to work
+efficiently with a variety of data and to minimize bias. Even in a big data project, predictive models are
+typically developed and piloted with samples. Samples are also used in tests of various sorts (e.g.,
+pricing, web treatments).
+Figure 2-1 shows a schematic that underpins the concepts in this chapter. The lefthand side represents a
+population that, in statistics, is assumed to follow an underlying but unknown distribution. The only thing
+available is the sample data and its empirical distribution, shown on the righthand side. To get from the
+lefthand side to the righthand side, a sampling procedure is used (represented by dashed arrows).
+Traditional statistics focused very much on the lefthand side, using theory based on strong assumptions
+about the population. Modern statistics has moved to the righthand side, where such assumptions are not
+needed.
+
+#### Random Sampling and Sample Bias
+
+A sample is a subset of data from a larger data set; statisticians call this larger data set the population. A
+population in statistics is not the same thing as in biology — it is a large, defined but sometimes
+theoretical or imaginary, set of data.
+
+##### KEY TERMS FOR RANDOM SAMPLING
+
+Sample  
+
+* A subset from a larger data set.
+
+Population  
+
+* The larger data set or idea of a data set.
+
+N (n)  
+
+* The size of the population (sample).
+
+Random sampling
+
+* Drawing elements into a sample at random.
+
+Stratified sampling
+
+* Dividing the population into strata and randomly sampling from each strata.
+
+Simple random sample
+
+* The sample that results from random sampling without stratifying the population.
+
+Sample bias
+
+* A sample that misrepresents the population.
+
+Random sampling is a process in which each available member of the population being sampled has an
+equal chance of being chosen for the sample at each draw. The sample that results is called a simple
+random sample. Sampling can be done with replacement, in which observations are put back in the
+population after each draw for possible future reselection. Or it can be done without replacement, in
+which case observations, once selected, are unavailable for future draws.
+
+Data quality in data science involves completeness, consistency of format, cleanliness, and accuracy of
+individual data points. Statistics adds the notion of representativeness.
+
+The Literary Digest opted for quantity, paying little attention to the method of selection. They ended up
+polling those with relatively high socioeconomic status (their own subscribers, plus those who, by virtue
+of owning luxuries like telephones and automobiles, appeared in marketers’ lists). The result was sample
+bias; that is, the sample was different in some meaningful nonrandom way from the larger population it
+was meant to represent.
+
+The term nonrandom is important — hardly any sample, including random
+samples, will be exactly representative of the population. Sample bias occurs when the difference is
+meaningful, and can be expected to continue for other samples drawn in the same way as the first.
+
+
+Bias
+
+Statistical bias refers to measurement or sampling errors that are systematic and produced by the
+measurement or sampling process. An important distinction should be made between errors due to random
+chance, and errors due to bias.
+Bias comes in different forms, and may be observable or invisible. When a result does suggest bias (e.g.,
+by reference to a benchmark or actual values), it is often an indicator that a statistical or machine learning
+model has been misspecified, or an important variable left out.
+
+Random sampling is not always easy. Proper definition of an accessible population is key.
+
+In stratified sampling, the population is divided up into strata, and random samples are taken from each
+stratum.
+
+#### Size versus Quality: When Does Size Matter?
+
+In the era of big data, it is sometimes surprising that smaller is better. Time and effort spent on random
+sampling not only reduce bias, but also allow greater attention to data exploration and data quality. For
+example, missing data and outliers may contain useful information. It might be prohibitively expensive to
+track down missing values or evaluate outliers in millions of records, but doing so in a sample of several
+thousand records may be feasible.
+
+So when are massive amounts of data needed?
+The classic scenario for the value of big data is when the data is not only big, but sparse as well.
+
+
+#### Sample Mean versus Population Mean
+The symbol
+$$\overline{x}$$
+is used to represent the mean of a sample from a population, whereas
+$$\mu$$  
+is used to represent the mean of a population.
+
+#### KEY IDEAS
+* Even in the era of big data, random sampling remains an important arrow in the data scientist’s quiver.
+* Bias occurs when measurements or observations are systematically in error because they are not representative of the full population.
+* Data quality is often more important than data quantity, and random sampling can reduce bias and facilitate quality improvement that would be prohibitively expensive.
+
+#### Selection BIAS
+Selection bias refers to the practice of selectively choosing data — consciously or unconsciously — in a
+way that that leads to a conclusion that is misleading or ephemeral.
+
+#### KEY TERMS
+
+Bias
+ * Systematic error.
+
+Data snooping
+ * Extensive hunting through data in search of something interesting.
+
+Vast search effect
+ * Bias or nonreproducibility resulting from repeated data modeling, or modeling data with large numbers of predictor variables.
+ 
+ We can guard against this by using a holdout set, and sometimes more than one holdout set, against which
+to validate performance. Elder also advocates the use of what he calls target shuffling (a permutation
+test, in essence) to test the validity of predictive associations that a data mining model suggests.
+
+#### Regression to the Mean
+Regression to the mean refers to a phenomenon involving successive measurements on a given variable:
+extreme observations tend to be followed by more central ones. Attaching special focus and meaning to
+the extreme value can lead to a form of selection bias.
+Regression to the mean is a consequence of a particular form of selection bias. When we select the rookie
+with the best performance, skill and good luck are probably contributing. In his next season, the skill will
+still be there but, in most cases, the luck will not, so his performance will decline — it will regress.
+
+####KEY IDEAS
+* Specifying a hypothesis, then collecting data following randomization and random sampling principles, ensures against bias.
+* All other forms of data analysis run the risk of bias resulting from the data collection/analysis process (repeated running of models
+in data mining, data snooping in research, and after-the-fact selection of interesting events).
+
+##### Sampling Distribution of a Statistic
+
+The term sampling distribution of a statistic refers to the distribution of some sample statistic, over many
+samples drawn from the same population. Much of classical statistics is concerned with making
+inferences from (small) samples to (very large) populations.
+
+#### KEY TERMS
+
+Sample statistic
+* A metric calculated for a sample of data drawn from a larger population.
+
+Data distribution
+* The frequency distribution of individual values in a data set.
+
+Sampling distribution
+* The frequency distribution of a sample statistic over many samples or resamples.
+
+Central limit theorem
+* The tendency of the sampling distribution to take on a normal shape as sample size rises.
+
+Standard error
+* The variability (standard deviation) of a sample statistic over many samples (not to be confused with standard deviation, which,
+by itself, refers to variability of individual data values).
+
+The histogram of the individual data values is broadly spread out and skewed toward higher values as is
+to be expected with income data. The histograms of the means of 5 and 20 are increasingly compact and
+more bell-shaped.
+
+```{r histosamples, eval=FALSE, include=FALSE}
+
+library(ggplot2)
+
+loans_income <- read.csv(file="C:/Users/Emilio Blanco/Documents/Emilio/DS/datascience-scripts/psds_data/loans_income.csv")
+# take a simple random sample
+samp_data <- data.frame(income=sample(loans_income, 1000, TRUE), type='data_dist')
+# take a sample of means of 5 values
+samp_mean_05 <- data.frame(income = tapply(sample(loans_income, 1000*5, TRUE), rep(1:1000, rep(5, 1000)), FUN=mean), type = 'mean_of_5')
+# take a sample of means of 20 values
+samp_mean_20 <- data.frame(income = tapply(sample(loans_income, 1000*20, TRUE), rep(1:1000, rep(20, 1000)), FUN=mean), type = 'mean_of_20')
+# bind the data.frames and convert type to a factor
+income <- rbind(samp_data, samp_mean_05, samp_mean_20)
+income$type = factor(income$type, levels=c('data_dist', 'mean_of_5', 'mean_of_20'), labels=c('Data', 'Mean of 5', 'Mean of 20'))
+# plot the histograms
+ggplot(income, aes(x=income)) + geom_histogram(bins=40) + facet_grid(type ~ .)
+
+```
+
+
+
+<!-- pagina 110 -->
